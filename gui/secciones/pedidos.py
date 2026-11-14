@@ -103,9 +103,9 @@ class SeccionPedidos(ttk.Frame):
         if not usuarios:
             mostrar_error("No hay usuarios cargados. Creá uno primero.")
             return
-        productos = self.__producto_servicio.listar()
+        productos = self.__producto_servicio.listar_disponibles()
         if not productos:
-            mostrar_error("No hay productos cargados. Creá uno primero.")
+            mostrar_error("No hay productos disponibles con stock. Creá o habilitá uno primero.")
             return
         _DialogoCrearPedido(self, usuarios, productos, self.__pedido_servicio, self.__refrescar).esperar()
 
@@ -126,17 +126,21 @@ class SeccionPedidos(ttk.Frame):
         formulario.agregar_botones("Guardar")
         if not formulario.esperar():
             return
+        nuevo_estado = Estado(formulario.texto("estado"))
+        nueva_forma_pago = FormaPago(formulario.texto("forma_pago"))
+        hubo_cambios = nueva_forma_pago != pedido.forma_pago or nuevo_estado != pedido.estado
+        if not hubo_cambios:
+            mostrar_info("No hubo cambios para guardar.")
+            return
         try:
-            nuevo_estado = Estado(formulario.texto("estado"))
-            if nuevo_estado != pedido.estado:
-                self.__pedido_servicio.cambiar_estado(id_pedido, nuevo_estado)
-            nueva_forma_pago = FormaPago(formulario.texto("forma_pago"))
             if nueva_forma_pago != pedido.forma_pago:
                 self.__pedido_servicio.cambiar_forma_pago(id_pedido, nueva_forma_pago)
+            if nuevo_estado != pedido.estado:
+                self.__pedido_servicio.cambiar_estado(id_pedido, nuevo_estado)
             mostrar_info("Pedido actualizado.")
-            self.__refrescar()
         except FoodStoreError as error:
             mostrar_error(str(error))
+        self.__refrescar()
 
     def __eliminar(self) -> None:
         id_pedido = self.__tabla.id_seleccionado()
