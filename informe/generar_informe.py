@@ -33,7 +33,7 @@ INTEGRANTES = ["Roberto Jaimes", "Gabriel Vega"]
 FECHA_ENTREGA = "16/11/2026"
 
 # Completar antes de armar el .zip final de entrega.
-URL_REPOSITORIO = "[COMPLETAR: https://github.com/jaimesroberttto/food_store]"
+URL_REPOSITORIO = "https://github.com/jaimesroberttto/food_store"
 URL_VIDEO = "[COMPLETAR: enlace al video de YouTube/Drive con permisos públicos]"
 
 MARGEN = 20
