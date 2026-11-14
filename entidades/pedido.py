@@ -66,14 +66,18 @@ class Pedido(Base, Calculable):
     def agregar_detalle(self, cantidad: int, producto: Producto) -> None:
         if producto is None or producto.eliminado:
             raise DatoInvalidoError("El producto no es válido")
+        if not producto.disponible:
+            raise OperacionNoPermitidaError(f"El producto '{producto.nombre}' no está disponible")
         if cantidad <= 0:
             raise DatoInvalidoError("La cantidad debe ser mayor a 0")
-        if cantidad > producto.stock:
+
+        detalle_existente = self.buscar_detalle_por_producto(producto)
+        cantidad_total = cantidad + (detalle_existente.cantidad if detalle_existente else 0)
+        if cantidad_total > producto.stock:
             raise StockInsuficienteError(
                 f"Stock insuficiente para '{producto.nombre}' (disponible: {producto.stock})"
             )
 
-        detalle_existente = self.buscar_detalle_por_producto(producto)
         if detalle_existente is not None:
             detalle_existente.aumentar_cantidad(cantidad)
         else:
