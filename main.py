@@ -1,7 +1,12 @@
-from consola.fabrica import crear_menu
-from consola.lectura import leer_texto
+"""Punto de entrada de Food Store.
+
+Por defecto arranca la interfaz gráfica (Tkinter). Con el argumento --consola
+arranca el menú de texto clásico, que se conserva en el paquete `consola`.
+"""
+
+import sys
+
 from enums.rol import Rol
-from excepciones.errores import CredencialesInvalidasError
 from servicios.categoria_servicio import CategoriaServicio
 from servicios.pedido_servicio import PedidoServicio
 from servicios.producto_servicio import ProductoServicio
@@ -25,34 +30,48 @@ def cargar_datos_iniciales(
     producto_servicio.crear("Hamburguesa clásica", 5200.0, "Con papas", 10, "", True, comidas)
 
 
-def iniciar_sesion(usuario_servicio: UsuarioServicio):
-    for intento in range(1, MAX_INTENTOS_LOGIN + 1):
-        print("=== FOOD STORE – INICIO DE SESIÓN ===")
-        mail = leer_texto("Mail: ")
-        contrasenia = leer_texto("Contraseña: ")
-        try:
-            usuario = usuario_servicio.autenticar(mail, contrasenia)
-            print(f"\nBienvenido/a, {usuario.nombre} {usuario.apellido} [{usuario.rol.value}]")
-            return usuario
-        except CredencialesInvalidasError as error:
-            intentos_restantes = MAX_INTENTOS_LOGIN - intento
-            if intentos_restantes > 0:
-                print(f"{error}. Intentos restantes: {intentos_restantes}\n")
-            else:
-                print(f"{error}.")
-    return None
+def ejecutar_gui(
+    categoria_servicio: CategoriaServicio,
+    producto_servicio: ProductoServicio,
+    usuario_servicio: UsuarioServicio,
+    pedido_servicio: PedidoServicio,
+) -> None:
+    from gui.app import FoodStoreApp
+
+    app = FoodStoreApp(categoria_servicio, producto_servicio, usuario_servicio, pedido_servicio)
+    app.mainloop()
 
 
-def main() -> None:
-    categoria_servicio = CategoriaServicio()
-    producto_servicio = ProductoServicio()
-    usuario_servicio = UsuarioServicio()
-    pedido_servicio = PedidoServicio(producto_servicio)
+def ejecutar_consola(
+    categoria_servicio: CategoriaServicio,
+    producto_servicio: ProductoServicio,
+    usuario_servicio: UsuarioServicio,
+    pedido_servicio: PedidoServicio,
+) -> None:
+    from consola.fabrica import crear_menu
+    from consola.lectura import leer_texto
+    from entidades.usuario import Usuario
+    from excepciones.errores import CredencialesInvalidasError
 
-    cargar_datos_iniciales(categoria_servicio, producto_servicio, usuario_servicio)
+    def iniciar_sesion() -> Usuario | None:
+        for intento in range(1, MAX_INTENTOS_LOGIN + 1):
+            print("=== FOOD STORE – INICIO DE SESIÓN ===")
+            mail = leer_texto("Mail: ")
+            contrasenia = leer_texto("Contraseña: ")
+            try:
+                usuario = usuario_servicio.autenticar(mail, contrasenia)
+                print(f"\nBienvenido/a, {usuario.nombre} {usuario.apellido} [{usuario.rol.value}]")
+                return usuario
+            except CredencialesInvalidasError as error:
+                intentos_restantes = MAX_INTENTOS_LOGIN - intento
+                if intentos_restantes > 0:
+                    print(f"{error}. Intentos restantes: {intentos_restantes}\n")
+                else:
+                    print(f"{error}.")
+        return None
 
     while True:
-        usuario = iniciar_sesion(usuario_servicio)
+        usuario = iniciar_sesion()
         if usuario is None:
             print("Se agotaron los intentos de inicio de sesión. Cerrando Food Store.")
             break
@@ -64,6 +83,20 @@ def main() -> None:
         if not continuar_sesion:
             print("¡Gracias por usar Food Store!")
             break
+
+
+def main() -> None:
+    categoria_servicio = CategoriaServicio()
+    producto_servicio = ProductoServicio()
+    usuario_servicio = UsuarioServicio()
+    pedido_servicio = PedidoServicio(producto_servicio)
+
+    cargar_datos_iniciales(categoria_servicio, producto_servicio, usuario_servicio)
+
+    if "--consola" in sys.argv:
+        ejecutar_consola(categoria_servicio, producto_servicio, usuario_servicio, pedido_servicio)
+    else:
+        ejecutar_gui(categoria_servicio, producto_servicio, usuario_servicio, pedido_servicio)
 
 
 if __name__ == "__main__":

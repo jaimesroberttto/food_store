@@ -1,0 +1,40 @@
+Capturas de pantalla para el informe (Informe_TPI_FoodStore.pdf)
+==================================================================
+
+Guardar acá las capturas con EXACTAMENTE estos nombres (.png o .jpg),
+sacadas del sistema funcionando (consola con --consola, o la GUI, lo que
+se vea mejor en cada caso). Después correr de nuevo:
+
+    python generar_informe.py
+
+y el PDF va a reemplazar automáticamente los recuadros naranjas de
+"CAPTURA PENDIENTE" por la imagen real, sin tocar nada más del informe.
+
+Archivos esperados:
+
+1. login_admin.png
+   Inicio de sesión exitoso como ADMIN (saludo con nombre y rol).
+
+2. menu_admin.png
+   Menú principal del administrador con sus cuatro secciones.
+
+3. crear_producto.png
+   Alta de un producto nuevo, mostrando el id generado.
+
+4. error_validacion.png
+   Un error de validación de negocio (precio negativo, mail duplicado,
+   nombre de categoría repetido, etc.) sin que el programa se cierre.
+
+5. pedido_cancelado_stock.png
+   Intento de pedido con una cantidad mayor al stock disponible,
+   rechazado por StockInsuficienteError.
+
+6. login_cliente.png
+   Inicio de sesión exitoso como USUARIO (cliente) y su menú de consulta.
+
+7. mis_pedidos_cliente.png
+   El cliente viendo "Mis pedidos" y el detalle de uno de ellos.
+
+Si sacan alguna captura de más (por ejemplo, de la GUI) y quieren
+agregarla, se puede sumar otra entrada a CAPTURAS_REQUERIDAS en
+generar_informe.py.
