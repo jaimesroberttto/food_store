@@ -3,7 +3,7 @@ from entidades.producto import Producto
 from entidades.usuario import Usuario
 from enums.estado import Estado
 from enums.forma_pago import FormaPago
-from excepciones.errores import EntidadNoEncontradaError
+from excepciones.errores import EntidadNoEncontradaError, OperacionNoPermitidaError
 from servicios.producto_servicio import ProductoServicio
 
 
@@ -45,6 +45,10 @@ class PedidoServicio:
 
     def cambiar_forma_pago(self, id_pedido: int, forma_pago: FormaPago) -> Pedido:
         pedido = self.buscar_por_id(id_pedido)
+        if pedido.estado in (Estado.TERMINADO, Estado.CANCELADO):
+            raise OperacionNoPermitidaError(
+                f"No se puede cambiar la forma de pago de un pedido {pedido.estado.value}"
+            )
         pedido.forma_pago = forma_pago
         return pedido
 
