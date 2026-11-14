@@ -197,6 +197,9 @@ class MenuAdministrador(Menu):
             disponible = None
             if leer_confirmacion("¿Cambiar disponibilidad?"):
                 disponible = leer_confirmacion("¿Disponible?")
+            categoria = None
+            if leer_confirmacion("¿Cambiar categoría?"):
+                categoria = self._elegir_categoria()
             self.__producto_servicio.editar(
                 id_producto,
                 nombre=nombre,
@@ -205,6 +208,7 @@ class MenuAdministrador(Menu):
                 stock=stock,
                 imagen=imagen,
                 disponible=disponible,
+                categoria=categoria,
             )
             print("Producto actualizado.")
         except FoodStoreError as error:
