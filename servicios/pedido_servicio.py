@@ -53,6 +53,8 @@ class PedidoServicio:
         if pedido.estado not in (Estado.TERMINADO, Estado.CANCELADO):
             self._devolver_stock(pedido)
         pedido.eliminado = True
+        for detalle in pedido.detalles:
+            detalle.eliminado = True
         return pedido
 
     def _devolver_stock(self, pedido: Pedido) -> None:

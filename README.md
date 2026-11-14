@@ -16,6 +16,12 @@ cd food_store
 python main.py
 ```
 
+Por defecto este comando abre la **interfaz gráfica** (Tkinter), agregada como plus sobre lo pedido en la consigna. La consigna pide explícitamente una **aplicación de consola**: ese modo se conserva intacto en el paquete `consola/` y se ejecuta con:
+
+```bash
+python main.py --consola
+```
+
 Para correr las pruebas del modelo y los servicios (sin menú interactivo):
 
 ```bash
@@ -50,7 +56,8 @@ food_store/
 ├── enums/               # Rol, Estado, FormaPago
 ├── excepciones/         # FoodStoreError y sus subclases
 ├── servicios/            # un servicio por entidad (CategoriaServicio, ProductoServicio, ...)
-└── consola/              # Menu, MenuAdministrador, MenuCliente y lectura validada
+├── consola/              # Menu, MenuAdministrador, MenuCliente y lectura validada (modo --consola)
+└── gui/                  # interfaz gráfica Tkinter (modo por defecto, no pedido por la consigna)
 ```
 
 ## Notas de diseño
