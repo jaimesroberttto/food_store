@@ -78,7 +78,6 @@ class SeccionProductos(ttk.Frame):
         formulario.agregar_texto("descripcion", "Descripción:")
         formulario.agregar_texto("precio", "Precio:")
         formulario.agregar_texto("stock", "Stock:")
-        formulario.agregar_texto("imagen", "Imagen (url o archivo):")
         formulario.agregar_booleano("disponible", "Disponible", True)
         formulario.agregar_combobox_objetos("categoria", "Categoría:", categorias, _texto_categoria)
         formulario.agregar_botones("Crear")
@@ -100,7 +99,6 @@ class SeccionProductos(ttk.Frame):
                 precio,
                 formulario.texto("descripcion"),
                 stock,
-                formulario.texto("imagen"),
                 formulario.booleano("disponible"),
                 categoria,
             )
@@ -121,7 +119,6 @@ class SeccionProductos(ttk.Frame):
         formulario.agregar_texto("descripcion", "Descripción:", producto.descripcion)
         formulario.agregar_texto("precio", "Precio:", str(producto.precio))
         formulario.agregar_texto("stock", "Stock:", str(producto.stock))
-        formulario.agregar_texto("imagen", "Imagen:", producto.imagen)
         formulario.agregar_booleano("disponible", "Disponible", producto.disponible)
         formulario.agregar_combobox_objetos(
             "categoria", "Categoría:", categorias, _texto_categoria, producto.categoria
@@ -142,7 +139,6 @@ class SeccionProductos(ttk.Frame):
                 precio=precio,
                 descripcion=formulario.texto("descripcion"),
                 stock=stock,
-                imagen=formulario.texto("imagen"),
                 disponible=formulario.booleano("disponible"),
                 categoria=formulario.objeto("categoria"),
             )

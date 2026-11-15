@@ -176,10 +176,9 @@ class MenuAdministrador(Menu):
             descripcion = leer_texto("Descripción: ")
             precio = leer_flotante("Precio: ", minimo=0)
             stock = leer_entero("Stock: ", minimo=0)
-            imagen = leer_texto("Imagen (url o nombre de archivo): ", obligatorio=False)
             disponible = leer_confirmacion("¿Disponible?")
             producto = self.__producto_servicio.crear(
-                nombre, precio, descripcion, stock, imagen, disponible, categoria
+                nombre, precio, descripcion, stock, disponible, categoria
             )
             print(f"Producto creado con id {producto.id}.")
         except FoodStoreError as error:
@@ -193,7 +192,6 @@ class MenuAdministrador(Menu):
             descripcion = leer_opcional("Nueva descripción (Enter para conservar): ")
             precio = leer_flotante_opcional("Nuevo precio (Enter para conservar): ")
             stock = leer_entero_opcional("Nuevo stock (Enter para conservar): ")
-            imagen = leer_opcional("Nueva imagen (Enter para conservar): ")
             disponible = None
             if leer_confirmacion("¿Cambiar disponibilidad?"):
                 disponible = leer_confirmacion("¿Disponible?")
@@ -206,7 +204,6 @@ class MenuAdministrador(Menu):
                 precio=precio,
                 descripcion=descripcion,
                 stock=stock,
-                imagen=imagen,
                 disponible=disponible,
                 categoria=categoria,
             )
