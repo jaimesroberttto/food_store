@@ -42,8 +42,8 @@ También se carga un usuario cliente de ejemplo: `cliente@foodstore.com` / `clie
 ## Enlaces
 
 - Video explicativo (10 a 15 minutos, con los dos integrantes a cámara al inicio): _(completar enlace)_
-- Informe en PDF: _(completar enlace, o ver el PDF en la raíz del .zip entregado)_
-- Repositorio GitHub: _(completar enlace)_
+- Informe en PDF: https://github.com/jaimesroberttto/food_store/blob/master/Informe_TPI_FoodStore.pdf
+- Repositorio GitHub: https://github.com/jaimesroberttto/food_store
 
 ## Estructura del proyecto
 
