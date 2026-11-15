@@ -31,11 +31,10 @@ class ProductoServicio:
         precio: float,
         descripcion: str,
         stock: int,
-        imagen: str,
         disponible: bool,
         categoria: Categoria,
     ) -> Producto:
-        producto = Producto(nombre, precio, descripcion, stock, imagen, disponible, categoria)
+        producto = Producto(nombre, precio, descripcion, stock, disponible, categoria)
         self.__productos.append(producto)
         return producto
 
@@ -46,7 +45,6 @@ class ProductoServicio:
         precio: float | None = None,
         descripcion: str | None = None,
         stock: int | None = None,
-        imagen: str | None = None,
         disponible: bool | None = None,
         categoria: Categoria | None = None,
     ) -> Producto:
@@ -59,8 +57,6 @@ class ProductoServicio:
             producto.descripcion = descripcion
         if stock is not None:
             producto.stock = stock
-        if imagen is not None:
-            producto.imagen = imagen
         if disponible is not None:
             producto.disponible = disponible
         if categoria is not None:
