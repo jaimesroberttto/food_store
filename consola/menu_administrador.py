@@ -275,8 +275,18 @@ class MenuAdministrador(Menu):
             apellido = leer_opcional("Nuevo apellido (Enter para conservar): ")
             mail = leer_opcional("Nuevo mail (Enter para conservar): ")
             celular = leer_opcional("Nuevo celular (Enter para conservar): ")
+            contrasenia = leer_opcional("Nueva contraseña (Enter para conservar): ")
+            rol = None
+            if leer_confirmacion("¿Cambiar rol?"):
+                rol = leer_opcion_enum("Nuevo rol:", Rol)
             self.__usuario_servicio.editar(
-                id_usuario, nombre=nombre, apellido=apellido, mail=mail, celular=celular
+                id_usuario,
+                nombre=nombre,
+                apellido=apellido,
+                mail=mail,
+                celular=celular,
+                contrasenia=contrasenia,
+                rol=rol,
             )
             print("Usuario actualizado.")
         except FoodStoreError as error:
