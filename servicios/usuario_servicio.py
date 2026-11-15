@@ -42,6 +42,7 @@ class UsuarioServicio:
         apellido: str | None = None,
         mail: str | None = None,
         celular: str | None = None,
+        contrasenia: str | None = None,
         rol: Rol | None = None,
     ) -> Usuario:
         usuario = self.buscar_por_id(id_usuario)
@@ -54,6 +55,8 @@ class UsuarioServicio:
             usuario.mail = mail
         if celular is not None:
             usuario.celular = celular
+        if contrasenia:
+            usuario.cambiar_contrasenia(contrasenia)
         if rol is not None:
             usuario.rol = rol
         return usuario
