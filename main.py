@@ -26,8 +26,8 @@ def cargar_datos_iniciales(
     bebidas = categoria_servicio.crear("Bebidas", "Gaseosas, jugos y aguas")
     comidas = categoria_servicio.crear("Comidas", "Platos principales")
 
-    producto_servicio.crear("Coca-Cola 500ml", 1500.0, "Gaseosa", 20, "", True, bebidas)
-    producto_servicio.crear("Hamburguesa clásica", 5200.0, "Con papas", 10, "", True, comidas)
+    producto_servicio.crear("Coca-Cola 500ml", 1500.0, "Gaseosa", 20, True, bebidas)
+    producto_servicio.crear("Hamburguesa clásica", 5200.0, "Con papas", 10, True, comidas)
 
 
 def ejecutar_gui(
