@@ -1,3 +1,4 @@
+import re
 from entidades.base import Base
 from enums.rol import Rol
 from excepciones.errores import DatoInvalidoError
@@ -47,10 +48,11 @@ class Usuario(Base):
 
     @mail.setter
     def mail(self, valor: str) -> None:
-        if not valor or "@" not in valor or "." not in valor:
+        if not valor or not re.match(r"^[^@\s]+@[^@\s]+\.[^@\s]+$", valor.strip()):
             raise DatoInvalidoError("El mail no tiene un formato válido")
         self.__mail = valor.strip().lower()
 
+        
     @property
     def celular(self) -> str:
         return self.__celular
