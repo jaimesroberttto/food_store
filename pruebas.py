@@ -43,16 +43,16 @@ def main() -> None:
         print(f"OK, se rechazó: {error}")
 
     titulo("Productos - caso válido")
-    coca = producto_servicio.crear("Coca-Cola 500ml", 1500.0, "Gaseosa", 20, "", True, bebidas)
+    coca = producto_servicio.crear("Coca-Cola 500ml", 1500.0, "Gaseosa", 20, True, bebidas)
     hamburguesa = producto_servicio.crear(
-        "Hamburguesa clásica", 5200.0, "Con papas", 5, "", True, comidas
+        "Hamburguesa clásica", 5200.0, "Con papas", 5, True, comidas
     )
     for producto in producto_servicio.listar():
         print(producto)
 
     titulo("Productos - precio negativo (error esperado)")
     try:
-        producto_servicio.crear("Producto inválido", -10.0, "x", 1, "", True, bebidas)
+        producto_servicio.crear("Producto inválido", -10.0, "x", 1, True, bebidas)
     except PrecioInvalidoError as error:
         print(f"OK, se rechazó: {error}")
 
