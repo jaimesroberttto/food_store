@@ -10,7 +10,6 @@ class Producto(Base):
         precio: float,
         descripcion: str,
         stock: int,
-        imagen: str,
         disponible: bool,
         categoria: Categoria,
     ) -> None:
@@ -19,7 +18,6 @@ class Producto(Base):
         self.precio = precio
         self.descripcion = descripcion
         self.stock = stock
-        self.imagen = imagen
         self.disponible = disponible
         self.categoria = categoria
 
@@ -60,14 +58,6 @@ class Producto(Base):
         if valor < 0:
             raise DatoInvalidoError("El stock no puede ser negativo")
         self.__stock = int(valor)
-
-    @property
-    def imagen(self) -> str:
-        return self.__imagen
-
-    @imagen.setter
-    def imagen(self, valor: str) -> None:
-        self.__imagen = valor.strip() if valor else ""
 
     @property
     def disponible(self) -> bool:
